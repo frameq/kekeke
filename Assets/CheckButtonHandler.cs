@@ -3,12 +3,15 @@ using System.Collections;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class CheckButtonHandler : MonoBehaviour {
 
     Manager manager;
     Button btn;
     Text img;
+
+    bool endOfGame = false;
 
 	// Use this for initialization
 	void Start () {
@@ -47,9 +50,27 @@ public class CheckButtonHandler : MonoBehaviour {
         
         List<int> ab = manager.CheckAnswer();
         //print("in="+ab[0]+"  on="+ ab[1]);
+
+
+        //TODO перевести на события
+        if (endOfGame)
+        {
+            NewGame();
+        }
+        else
+            GameObject.Find("Scroll View").GetComponent<ScrollViewHandler>().CreateResultTable();
         
-        GameObject.Find("Scroll View").GetComponent<ScrollViewHandler>().CreateResultTable();
-        
+    }
+
+    private void NewGame()
+    {
+        SceneManager.LoadScene("scene");
+    }
+
+    public void EndOfGame()
+    {
+        btn.GetComponentInChildren<Text>().text = "New Game";
+        endOfGame = true;
     }
 
 

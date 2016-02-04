@@ -41,7 +41,8 @@ public class Manager : MonoBehaviour {
                 result.Add(tmp);
             }
         }
-        return result;
+        //return result;
+        return new List<int> { 4, 1, 2, 3 };
     }
 
     public List<int> GetSelectedNumbers()
