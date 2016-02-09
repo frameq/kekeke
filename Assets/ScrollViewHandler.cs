@@ -94,10 +94,11 @@ public class ScrollViewHandler : MonoBehaviour {
 
         textureResultTable.Apply();
         GameObject.Find("Content").GetComponent<Image>().sprite = Sprite.Create(textureResultTable, new Rect(0, 0, textureResultTableWidth, textureResultTableHeight), new Vector2(0, 0));
+        print(GameObject.Find("Scroll View").GetComponent<ScrollRect>().verticalNormalizedPosition);
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        print(GameObject.Find("Scroll View").GetComponent<ScrollRect>().verticalNormalizedPosition);
+    }
 }
