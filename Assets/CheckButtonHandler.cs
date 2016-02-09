@@ -31,26 +31,25 @@ public class CheckButtonHandler : MonoBehaviour {
     private void OnBtnClick()
     {
 
-        List<int> a = manager.GetSelectedNumbers();
-        string s = "";
-        foreach (int k in a)
-        {
-            s += k.ToString();
-        }
-        //print(s);
-
-        a = manager.GetTaskNumbers();
-        s = "";
-        foreach (int k in a)
-        {
-            s += k.ToString();
-        }
-        //print(s);
-
-        
-        List<int> ab = manager.CheckAnswer();
-        //print("in="+ab[0]+"  on="+ ab[1]);
-
+       //List<int> a = manager.GetSelectedNumbers();
+       //string s = "";
+       //foreach (int k in a)
+       //{
+       //    s += k.ToString();
+       //}
+       ////print(s);
+       //
+       //a = manager.GetTaskNumbers();
+       //s = "";
+       //foreach (int k in a)
+       //{
+       //    s += k.ToString();
+       //}
+       ////print(s);
+       
+       
+       //List<int> ab = 
+            manager.CheckAnswer();
 
         //TODO перевести на события
         if (endOfGame)
