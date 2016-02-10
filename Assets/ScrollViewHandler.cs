@@ -62,43 +62,49 @@ public class ScrollViewHandler : MonoBehaviour {
         int endOfGame = 0;
         int countOfRows;
         List<int[]> input = manager.GetResultTable();
+        input.Reverse();
         //проверяем что на месте 4 цыфры
-        
-        if (input[input.Count - 1][4] == 4) endOfGame = 1;
 
-        countOfRows = input.Count + endOfGame;
+        if (input[0][4] == 4) {
+            endOfGame = 1;
+            input.Insert(0, new int[6]);
+        }
+        
+
+        countOfRows = input.Count;// + endOfGame;
         int textureResultTableHeight = countOfRows * textureNumsHeight;
         Texture2D textureResultTable = new Texture2D(textureResultTableWidth, textureResultTableHeight);
         //GameObject.Find("Content").GetComponent<Image>();
         //print(textureResultTable.height + " " + textureResultTable.width);
         scrlRectContent.sizeDelta = new Vector2(0, textureResultTable.height);
+        //scrlRectContent.localPosition = new Vector3(0, -508, 0);
+       // GameObject.Find("Scroll View").GetComponent<ScrollRect>().verticalNormalizedPosition = 0;
+        
         //scrlRectContent.position = new Vector3(1, -1, 0);
-        for (int row = 0; row < countOfRows - endOfGame; row++)
+        for (int row = 0 +endOfGame ; row < countOfRows; row++)
         {
             for (int column = 0; column < 4; column++)
             {
                 textureResultTable.SetPixels(column * textureNumsWidth, row * textureNumsHeight, textureNumsWidth, textureNumsHeight, GetNumber(input[row][column]));
             }
-            //print(input[row][4]);
             textureResultTable.SetPixels(4 * textureNumsWidth, row * textureNumsHeight + textureLittleNumsHeight, textureLittleNumsWidth, textureLittleNumsHeight, GetLittleNumber(input[row][4]));
-            //print(input[row][4]);
             textureResultTable.SetPixels(4 * textureNumsWidth, row * textureNumsHeight, textureLittleNumsWidth, textureLittleNumsHeight, GetLittleNumber(input[row][5]));
             textureResultTable.SetPixels(textureResultTableWidth - textureAnswerDescriptionWidth, row * textureNumsHeight, textureAnswerDescriptionWidth, textureAnswerDescription.height, textureAnswerDescription.GetPixels());
-            
         }
         if (endOfGame == 1)
         {
-            textureResultTable.SetPixels(0, (countOfRows - 1) * textureNumsHeight, 384, 62, textureEndOfGame.GetPixels());
+            textureResultTable.SetPixels(0, 0 * textureNumsHeight, 384, 62, textureEndOfGame.GetPixels());
             GameObject.Find("Button").GetComponent<CheckButtonHandler>().EndOfGame();
         }
 
         textureResultTable.Apply();
         GameObject.Find("Content").GetComponent<Image>().sprite = Sprite.Create(textureResultTable, new Rect(0, 0, textureResultTableWidth, textureResultTableHeight), new Vector2(0, 0));
-        print(GameObject.Find("Scroll View").GetComponent<ScrollRect>().verticalNormalizedPosition);
+
+        //GameObject.Find("Scroll View").GetComponent<ScrollRect>().verticalNormalizedPosition = 0;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        print(GameObject.Find("Scroll View").GetComponent<ScrollRect>().verticalNormalizedPosition);
+        //print(GameObject.Find("Scroll View").GetComponent<ScrollRect>().verticalNormalizedPosition);
     }
 }

@@ -49,7 +49,7 @@ public class CheckButtonHandler : MonoBehaviour {
        
        
        //List<int> ab = 
-            manager.CheckAnswer();
+        manager.CheckAnswer();
 
         //TODO перевести на события
         if (endOfGame)

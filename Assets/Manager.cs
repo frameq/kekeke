@@ -57,7 +57,7 @@ public class Manager : MonoBehaviour {
 
     public List<int[]> GetResultTable()
     {
-        return arrayAnswers;
+        return new List<int[]>(arrayAnswers);
     }
     
     public List<int> CheckAnswer()
