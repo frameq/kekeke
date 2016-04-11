@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class ScrollViewHandler : MonoBehaviour {
 
     public Texture2D textureNums;
-    public Texture2D textureLittleNums;
+    public Texture2D textureLittleNums_red;
+    public Texture2D textureLittleNums_green;
     public Texture2D textureAnswerDescription;
     public Texture2D textureEndOfGame;
 
@@ -34,16 +35,16 @@ public class ScrollViewHandler : MonoBehaviour {
         textureNumsHeight = textureNums.height / 10;
         textureNumsWidth = textureNums.width;
 
-        textureLittleNumsHeight = textureLittleNums.height / 5;
-        textureLittleNumsWidth = textureLittleNums.width;
+        textureLittleNumsHeight = textureLittleNums_red.height / 5;
+        textureLittleNumsWidth = textureLittleNums_red.width;
 
         textureAnswerDescriptionWidth = textureAnswerDescription.width;
 
-        textureResultTableWidth = textureNumsWidth * 4 + textureLittleNumsWidth + textureAnswerDescriptionWidth;
+        textureResultTableWidth = textureNumsWidth * 4 + textureAnswerDescriptionWidth;
 
-        Texture2D t = new Texture2D(textureLittleNumsWidth, textureLittleNumsHeight);
-        t.SetPixels(GetLittleNumber(1));
-        t.Apply();
+        //Texture2D t = new Texture2D(textureLittleNumsWidth, textureLittleNumsHeight);
+        //t.SetPixels(GetLittleNumber(1));
+        //t.Apply();
         //GameObject.Find("Image").GetComponent<Image>().sprite = Sprite.Create(t,new Rect(0,0,textureLittleNumsWidth,textureLittleNumsHeight), new Vector2(0,0));
 	}
 
@@ -52,9 +53,11 @@ public class ScrollViewHandler : MonoBehaviour {
         return textureNums.GetPixels(0, textureNumsHeight * number, textureNumsWidth, textureNumsHeight);
     }
 
-    private Color[] GetLittleNumber(int number)
+    private Color[] GetLittleNumber(int number, string color)
     {
-        return textureLittleNums.GetPixels(0, textureLittleNumsHeight * number, textureLittleNumsWidth, textureLittleNumsHeight);
+        if (color == "green")
+            return textureLittleNums_green.GetPixels(0, textureLittleNumsHeight * number, textureLittleNumsWidth, textureLittleNumsHeight);
+        return textureLittleNums_red.GetPixels(0, textureLittleNumsHeight * number, textureLittleNumsWidth, textureLittleNumsHeight);
     }
 
     public void CreateResultTable()
@@ -87,9 +90,28 @@ public class ScrollViewHandler : MonoBehaviour {
             {
                 textureResultTable.SetPixels(column * textureNumsWidth, row * textureNumsHeight, textureNumsWidth, textureNumsHeight, GetNumber(input[row][column]));
             }
-            textureResultTable.SetPixels(4 * textureNumsWidth, row * textureNumsHeight + textureLittleNumsHeight, textureLittleNumsWidth, textureLittleNumsHeight, GetLittleNumber(input[row][4]));
-            textureResultTable.SetPixels(4 * textureNumsWidth, row * textureNumsHeight, textureLittleNumsWidth, textureLittleNumsHeight, GetLittleNumber(input[row][5]));
+            
+            //textureResultTable.SetPixels(textureResultTableWidth - textureAnswerDescriptionWidth, row * textureNumsHeight, textureAnswerDescriptionWidth, textureAnswerDescription.height, textureAnswerDescription.GetPixels());
             textureResultTable.SetPixels(textureResultTableWidth - textureAnswerDescriptionWidth, row * textureNumsHeight, textureAnswerDescriptionWidth, textureAnswerDescription.height, textureAnswerDescription.GetPixels());
+            //на месте зеленый
+            //textureResultTable.SetPixels(4 * textureNumsWidth + 40, row * textureNumsHeight + textureLittleNumsHeight, textureLittleNumsWidth, textureLittleNumsHeight, GetLittleNumber(input[row][4]));
+            Color[] tmp = textureResultTable.GetPixels(4 * textureNumsWidth + 40, row * textureNumsHeight + textureLittleNumsHeight, textureLittleNumsWidth, textureLittleNumsHeight);
+            Color[] res = textureResultTable.GetPixels(4 * textureNumsWidth + 40, row * textureNumsHeight + textureLittleNumsHeight, textureLittleNumsWidth, textureLittleNumsHeight);
+            Color[] answerNumber = GetLittleNumber(input[row][4], "green");
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                res[i] = Color.Lerp(tmp[i], answerNumber[i], answerNumber[i].a);
+            }
+            textureResultTable.SetPixels(4 * textureNumsWidth + 40, row * textureNumsHeight + textureLittleNumsHeight, textureLittleNumsWidth, textureLittleNumsHeight, res);
+            //не на месте красный
+            Color[] tmp1 = textureResultTable.GetPixels(4 * textureNumsWidth + 60, row * textureNumsHeight, textureLittleNumsWidth, textureLittleNumsHeight);
+            Color[] res1 = textureResultTable.GetPixels(4 * textureNumsWidth + 60, row * textureNumsHeight, textureLittleNumsWidth, textureLittleNumsHeight);
+            Color[] answerNumber1 = GetLittleNumber(input[row][5], "red");
+            for (int i = 0; i < tmp1.Length; i++)
+            {
+                res1[i] = Color.Lerp(tmp1[i], answerNumber1[i], answerNumber1[i].a);
+            }
+            textureResultTable.SetPixels(4 * textureNumsWidth + 60, row * textureNumsHeight, textureLittleNumsWidth, textureLittleNumsHeight, res1);
         }
         if (endOfGame == 1)
         {
