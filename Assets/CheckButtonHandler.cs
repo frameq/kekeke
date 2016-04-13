@@ -68,7 +68,7 @@ public class CheckButtonHandler : MonoBehaviour {
 
     public void EndOfGame()
     {
-        btn.GetComponentInChildren<Text>().text = "New Game";
+        btn.GetComponentInChildren<Text>().text = "New";
         endOfGame = true;
     }
 
