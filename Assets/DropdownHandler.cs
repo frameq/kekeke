@@ -19,7 +19,7 @@ public class DropdownHandler : MonoBehaviour
     void Start()
     {
         dropdown = GameObject.Find(object_name).GetComponent<Dropdown>();
-        dropdown.AddOptions(new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " " });
+        //dropdown.AddOptions(new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " " });
         dropdown.onValueChanged.AddListener(ChangeValue);
         manager = GameObject.Find("Manager").GetComponent<Manager>();
         //DisableSelectedNumbers();
