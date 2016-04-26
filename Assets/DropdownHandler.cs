@@ -31,6 +31,14 @@ public class DropdownHandler : MonoBehaviour
         //print("index=" + index + " value=" + dropdown.value);
         dropdown.value = manager.GetSelectedNumbers()[index];
         dropdown.RefreshShownValue();
+        if (dropdown.value == 10)
+        {
+            dropdown.GetComponent<Image>().color = new Color32(209,136,93,255);
+        }
+        else
+        {
+            dropdown.GetComponent<Image>().color = new Color32(229,219,209,255);
+        }
         //manager.SetCounter(index, dropdown.value);
 
     }

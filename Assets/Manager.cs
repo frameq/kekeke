@@ -105,6 +105,15 @@ public class Manager : MonoBehaviour {
         result.AddRange(answers);
         arrayAnswers.Add(result.ToArray());
     }
+
+    public void Surender()
+    {
+       for (int i = 0; i < 4; i++)
+        {
+            SetCounter(i, Task[i]);
+        }
+
+    }
     // Update is called once per frame
     void Update () {
 	

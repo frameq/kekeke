@@ -24,31 +24,20 @@ public class CheckButtonHandler : MonoBehaviour {
     private void ButtonState()
     {
         List<int> answers = manager.GetSelectedNumbers();
-        if (answers.IndexOf(10) == -1) btn.enabled = true;
-        else btn.enabled = false;
+        if (answers.IndexOf(10) == -1)
+        {
+            btn.enabled = true;
+            btn.GetComponent<Image>().color = new Color32(229, 219, 209, 255);
+        }
+        else
+        {
+            btn.enabled = false;
+            btn.GetComponent<Image>().color = new Color32(207, 209, 215, 255);
+        }
     }
 
-    private void OnBtnClick()
+    public void OnBtnClick()
     {
-
-       //List<int> a = manager.GetSelectedNumbers();
-       //string s = "";
-       //foreach (int k in a)
-       //{
-       //    s += k.ToString();
-       //}
-       ////print(s);
-       //
-       //a = manager.GetTaskNumbers();
-       //s = "";
-       //foreach (int k in a)
-       //{
-       //    s += k.ToString();
-       //}
-       ////print(s);
-       
-       
-       //List<int> ab = 
         manager.CheckAnswer();
 
         //TODO перевести на события
